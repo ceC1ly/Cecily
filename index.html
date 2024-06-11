@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - [Vue.js] Desktop &quot;OS&quot; Style Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenLite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/utils/Draggable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSPlugin.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="w-100 vh-100 relative" id="desktop">
+  <nav class="absolute top-0 left-0 right-0 flex items-center pv2 ph4">
+    <img class="logo mr4" src="https://image.ibb.co/iD2r35/smiley.png ">
+    <a class="white link no-underline f7 mr4 b" href="#">{{activeWindowTitle}}</a>
+    <a class="white link no-underline f7 mr4" href="#">File</a>
+    <a class="white link no-underline f7 mr4" href="#">Edit</a>
+    <a class="white link no-underline f7 mr4" href="#">View</a>
+    <a class="white link no-underline f7 mr4" href="#">Window</a>
+    <a class="white link no-underline f7" href="#">Help</a>
+  </nav>
+  <div class="restrictor absolute right-2 bottom-2 left-2">
+    <transition-group name="fade">
+      <draggable-window :id="window.id" v-if="window.isShowing" v-for="(window, $index) in windows" :key="$index" :content="window.comp" :title="window.title" :index="window.id">
+        {{ window.content }}
+      </draggable-window>
+    </transition-group>
+  </div>
+  <div class="absolute top-0 right-0 bottom-0 h-100 flex flex-column pa4">
+    <div class="flex items-center pv3">
+      <button class="flex-auto bn bg-transparent" @click="openWindow('welcome')">
+        <figure class="mt0 mh0 mb3 w3 h3 db center icon me"></figure>
+        <h4 class="ma0">Intoduction</h4>
+      </button>
+    </div>
+    <div class="flex items-center pv3">
+      <button class="flex-auto bn bg-transparent" @click="openWindow('home')">
+        <figure class="mt0 mh0 mb3 w3 h3 db center icon home"></figure>
+        <h4 class="ma0">Awards</h4>
+      </button>
+    </div>
+    <div class="flex items-center pv3">
+      <button class="flex-auto bn bg-transparent" @click="openWindow('writing')">
+        <figure class="mt0 mh0 mb3 w3 h3 db center icon writing"></figure>
+        <h4 class="ma0">Hobby</h4>
+      </button>
+    </div>
+    <div class="flex items-center pv3">
+      <button class="flex-auto bn bg-transparent" @click="openWindow('calendar')">
+        <figure class="mt0 mh0 mb3 w3 h3 db center icon calendar"></figure>
+        <h4 class="ma0">Future outlook</h4>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="x/template" id="draggable-window">
+	<div :id="id" class="window absolute bg-white ba bw2 b--black">
+    <div class="bb b--black bw2 flex items-center pa1">
+      <button @click="closeWindow" class="bg-transparent bn dim flex items-center">
+				<!-- Bauhaus FTW -->
+      	<i class="material-icons mr1 f5">change_history</i>
+        <i class="material-icons mr1 f5">crop_square</i>
+        <i class="material-icons f6">radio_button_unchecked</i>
+      </button>
+    </div>
+    <div class="pa3">
+    	<div :is="content"></div>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-template" id="welcome-template">
+	<div class="measure">
+  	<p class="mt0">My name is <a class="dark-pink link no-underline" href="http://mattrothenberg.com" target="_blank">Cecily Chan</span></p>
+    <p>I have been studying at  Colégio Diocesano de São José (5ª) for 8 years. I've learned a lot over the years. In the past few years in school, I have represented the school in competitions and gained a lot of experience in competitions. Also learn how to get along with others. I am also constantly studying hard now. Just to get into the university of my choice. <a class="dark-pink link no-underline" href="http://pivotal.io/platform" target="_blank"></a>  <a class="dark-pink link no-underline" href="https://runwayapp.io" target="_blank"></a>
+    <p> <a class="dark-pink link no-underline" href="https://github.com/mattrothenberg" target="_blank"></a> <a class="dark-pink link no-underline" href="https://twitter.com/mattrothenberg" target="_blank"></a></p>
+</script>
+<script type="text/x-template" id="home-template">
+	<div class="measure">
+  	<p class="mt0">This is the eighth-place certificate I won with my teammates in the 2023 Academic Track and Field Relay. It was an honor to represent the school at this competition, especially given my extensive participation in academic competitions over the years. I am well aware of the challenges and difficulties involved in winning an award at such an event, which is why I feel extremely honored and happy about this achievement.</p>
+    <img src=https://i.imgur.com/LbXMe9o.jpeg/>
+  </div>
+</script>
+<script type="text/x-template" id="writing-template">
+	<div class="measure">
+  	<p class="mt0"><a class="dark-pink link no-under-line" href="https://medium.com/@mattrothenberg" target="_blank">The following are my hobbies</a></p>
+    <hr class="o-40 mb3">
+    <a href="https://medium.freecodecamp.com/vue-js-introduction-for-people-who-know-just-enough-jquery-to-get-by-eab5aa193d77" target="_blank" class="no-underline dark-pink link fw6 db mb3">My hobbies include taking pictures and playing the guitar. During vacations, I enjoy hanging out with friends and capturing beautiful scenery through photography. When I feel bored at home, I find solace in playing the guitar and singing, as I believe music has the power to heal the soul. Playing and singing simultaneously brings me a great sense of relaxation and happiness.
+</a>
+<a href="https://medium.com/@mattrothenberg/living-styleguides-instantly-with-runway-529c397e8dd5" target="_blank" class="no-underline dark-pink link fw6 db mb3"></a>
+<a href="https://uxdesign.cc/treating-full-stack-anxiety-e96f984a02ec" target="_blank" class="no-underline dark-pink link fw6 db mb3"></a>
+<a href="https://hackernoon.com/adventures-in-prototyping-a-cli-e95aff625b42" target="_blank" class="no-underline dark-pink link fw6 db mb3"></a>
+  </div>
+</script>
+<script type="text/x-template" id="calendar-template">
+	<div class="measure-wide">
+  	<p class="mt0"><strong>Something about what I want to do in the future</strong></p>
+    <hr class="o-40 mb3">
+    <h4 class="mt0 mb2">In the future, I aspire to study market research at the University of Macau, as I have a dream of opening a dessert shop after graduation. I am eager to learn and create various types of desserts as I progress. By studying market research, I aim to gain a better understanding of the current market trends and explore innovative approaches. I sincerely hope to successfully pass the entrance exam and pursue my desired course of study. Currently, I am also learning how to make desserts online from the comfort of my home. I have already tried my hand at creating desserts such as egg tarts, cakes, and cookies.</h4>
+    <div class="f4" id="timeLeft"></div>
+  </div>
+</script>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.8/interact.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+<script src='https://cdn.rawgit.com/HugoGiraudel/Countdown.js/a88b61fc/countdown.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
